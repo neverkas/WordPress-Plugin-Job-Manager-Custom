@@ -16,10 +16,25 @@
 			//$("input[name='"+name_file+"']").parent().parent().children(".file-path-wrapper").find("input").attr('value', '');			
 		});
 
+		$(".preview").bind("click", function(){		
+			$("#post").parsley({
+				excluded:"input[type=checkbox], :hidden"
+			});
+		});
+
+		$("input[name='save']").bind("click", function(){		
+			$("#post").parsley({
+				excluded:""
+			});
+		});
+
 
 		$(window).bind("load", function(){
 			if(browser_location == 'post.php'){
+
+				
 				$("#post").parsley().validate();
+
 			}
 
 			if($('#post').parsley().isValid()){
@@ -59,6 +74,8 @@
 
 		// Agregar atributo para validaciòn del formulario con ParsleyJS
 		$('#post').attr('data-parsley-validate', '');
+
+
 
 		// Asignar y Configurar los elementos colapsables
 		$('.collapsible, .collapsible2').collapsible({
