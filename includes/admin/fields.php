@@ -22,6 +22,7 @@ function jmcArray($blockName, $post_data){
 			$hide_show_item	= "";
 			$title 			= "";
 			$require 		= "";
+			$highlight_text = "";
 			
 			// isset()
 			$type 			= isset($blockValue['type']) ? $blockValue['type'] : '';
@@ -39,6 +40,7 @@ function jmcArray($blockName, $post_data){
 			$hide_show_item = isset($blockValue['hide_show_item']) ? $blockValue['hide_show_item'] : '';
 			$title 			= isset($blockValue['title']) ? $blockValue['title'] : '';
 			$require 		= isset($blockValue['require']) ? $blockValue['require'] : '';
+			$highlight_text 		= isset($blockValue['highlight_text']) ? $blockValue['highlight_text'] : '';
 
 			$name 			= str_replace(" ", "", strtolower($text));
 
@@ -75,7 +77,8 @@ function jmcArray($blockName, $post_data){
 						'fields' 		=> $fields,
 
 						'title' 		=> $title,
-						'require' 		=> $require
+						'require' 		=> $require,
+						'highlight_text'=> $highlight_text
 					);
 					//echo "$nameInput <br />";
 				}
@@ -151,6 +154,8 @@ function jmcForm($item_value, $post_data){
 	$parent_name = "";
 	$parent_class = "";
 	$require = "";
+	$highlight_text = "";
+
 
 ////////
 	$arr 			= isset($item_value['arr']) ? $item_value['arr'] : '';
@@ -172,6 +177,7 @@ function jmcForm($item_value, $post_data){
 	$parent_name 	= isset($item_value['parent_name']) ? $item_value['parent_name'] : '';
 	$parent_class 	= isset($item_value['parent_class']) ? $item_value['parent_class'] : '';
 	$require 		= isset($item_value['require']) ? $item_value['require'] : '';
+	$highlight_text 		= isset($item_value['highlight_text']) ? $item_value['highlight_text'] : '';
 
 
 	$parse_name = str_replace(" ", "", strtolower($text));
@@ -213,7 +219,7 @@ function jmcForm($item_value, $post_data){
 		}
 
 		if($type_input == "input-text"){
-			jmcInputText($show, $hide_show_item, $name, $class, $input_class, $parent_class, $post_data_name, $text, $label, $tooltip, $require);
+			jmcInputText($show, $hide_show_item, $name, $class, $input_class, $parent_class, $post_data_name, $text, $label, $tooltip, $require, $highlight_text);
 		}
 
 		if($type_input == "textarea"){
@@ -294,7 +300,7 @@ $style = "{$show}";
 // jmcInputText($show, $name, $class, $input_class, $parent_class, $post_data_name, $text, $label, $tooltip);
 
 ?>
-<?php function jmcInputText($show, $hide_show_item, $name, $class, $input_class, $parent_class, $value, $text, $label, $tooltip, $require){ ?>
+<?php function jmcInputText($show, $hide_show_item, $name, $class, $input_class, $parent_class, $value, $text, $label, $tooltip, $require, $highlight_text){ ?>
 <?php $label = ($label) ? $label : $text; ?>
 <?php $input_class = ($tooltip) ? "{$class} tooltipped" : $input_class; ?>
 <?php $print_tooltip = ($tooltip) ? "data-position='bottom' data-delay=50 data-tooltip='{$label}: $tooltip'" : ''; ?>
@@ -303,9 +309,13 @@ $show = ($show === false) ? 'display:none;' : '';
 $style = "{$show}";
 $class = "$class $hide_show_item";
 
+$is_highlight_text = (!$highlight_text) ? '' : 'color:#000; font-weight: bold; font-size: 14px;'; // change the background 
+$is_highlight_text_div = (!$highlight_text) ? '' : 'border:solid 1px #FF5721;'; // change the background 
+$is_highlight_text_background = (!$highlight_text) ? '' : 'background-color:#ff5722; padding:0 10px;'; // change the background 
+
 $is_require = (!$require) ? '' : 'data-parsley-required="true" data-parsley-error-message="*Debes completar este campo"';
 ?>
-	<div class="input-field col s6 <?=$class?>" style="<?=$style?>">
+	<div class="input-field col s6 <?=$class?>" style="<?=$is_highlight_text_div.$style?>">
 	<?php if(current_user_can('jmc_empleador')){ ?>
 		<input style="color:#000 !important;" type="text" class="<?=$input_class?> " value="<?php echo $value; ?>" readonly="readonly">
 	<?php }else{ ?>
@@ -316,7 +326,9 @@ $is_require = (!$require) ? '' : 'data-parsley-required="true" data-parsley-erro
 		 echo "<span style='color:darkorchid;'><b>Formato:</b> mes/día/año (Ej. 04/12/1994) </span>";	
 		}
 	?>
-		<label for=""><?php echo $label; ?></label>
+		<label style="<?=$is_highlight_text_background?>" for="">
+			<span style="<?=$is_highlight_text?>"><?php echo $label; ?></span>
+		</label>
 	</div>
 
 <?php } ?>
@@ -714,6 +726,7 @@ function job_manager_custom_fields(){
 					"class"=> "validate",
 					"input_class" => "datepicker",
 					"require"=>true,
+					"highlight_text"=>true,
 				),
 
 				array(
@@ -722,6 +735,7 @@ function job_manager_custom_fields(){
 					"class"=> "validate",
 					"input_class" => "datepicker",
 					"require"=>true,
+					"highlight_text"=>true,
 				),
 
 				)

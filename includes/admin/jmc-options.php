@@ -104,7 +104,7 @@ $test = array("administrator", "jmc_empleador", "jmc_student");
 	<? } ?>
 <? } ?>
 
-<?php $files = array("profile-picture", "certificado-alumno-regular", "letter-for-universities", "first-reference-letter", "second-reference-letter", "first-reference-translations", "second-reference-translations"); ?>
+<?php $files = array("profile-picture"); ?>
 <div class="row">
 	<div class="col s10">
 	
