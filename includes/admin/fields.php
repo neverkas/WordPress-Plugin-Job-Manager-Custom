@@ -181,6 +181,7 @@ function jmcForm($item_value, $post_data){
 
 
 	$parse_name = str_replace(" ", "", strtolower($text));
+	//$parse_name = str_replace(" ", "-", strtolower($text));
 
 	if($nameInput){
 		$name = $nameInput;

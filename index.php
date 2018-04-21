@@ -26,6 +26,8 @@ include('includes/admin/admin-column-edit.php');
 include('includes/admin/list-remove-views-filter.php');
 include('includes/admin/list-posts-by-author.php');
 include('includes/admin/capabilities-by-roles.php');
+include('includes/admin/user-profile-custom-fields.php');
+include('includes/admin/user-profile-custom-fields-save.php');
 
 include('includes/admin/remove-button-save-draft.php');
 include('includes/admin/login-custom-css.php');
@@ -83,6 +85,10 @@ add_filter('the_content','replace_the_password_form');
 add_filter( 'random_password', 'disable_random_password', 10, 2 );
 
 add_filter( 'gettext', 'change_publish_button', 10, 2 );
+
+add_action( 'show_user_profile', 'crf_show_extra_profile_fields' );
+add_action( 'personal_options_update', 'crf_update_profile_fields' );
+add_action( 'edit_user_profile_update', 'crf_update_profile_fields' );
 
 add_action('init', 'capabilities_by_roles');
 add_action( 'pre_get_posts', 'list_posts_by_author' );
